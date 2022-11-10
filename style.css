@@ -1,0 +1,94 @@
+* {
+
+    margin: 0;
+    padding: 0;
+
+}
+
+body{
+
+    background-color: black;
+}
+
+header{
+
+    text-align: center;
+    padding: 1vh;
+    color: white;
+
+}
+
+main{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.cards{
+
+    width: 50%;
+    color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid white;
+    padding: 1vh;
+
+}
+
+.cards div{
+
+    padding: 1vh;
+    text-align: center;
+    font-size: 15vh;
+
+}
+
+.result{
+ 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    margin: 2vh;
+    padding: 1vh;
+
+}
+
+.result button{
+
+    margin: 1vh;
+    padding: 1vh;
+}
+
+footer{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1vh;
+    background-color: rgba(255, 255, 255, 0.5);
+
+}
+.hola{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1%;
+    color: red;
+    align-items: center;
+    justify-content: center;
+}
+p{
+    justify-content: center;
+}
+footer div{
+
+    margin: 1vh;
+
+}
