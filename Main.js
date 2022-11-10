@@ -1,10 +1,13 @@
 const log = (somethigth) => {
     console.log(somethigth)
 }
+let respuestica
 const azar = (number1)=>{
     const number = Math.floor(Math.random() * number1)
     return number
 }
+let correctas = 0
+let inCorrectas = 0
 const wi = ()=>{
     const preguntas = {
         "Numero1" : azar(15),
@@ -15,7 +18,7 @@ const wi = ()=>{
             azar(100)
         ]
     }
-    const respuestica = preguntas.Numero1 * preguntas.Numero2
+    respuestica = preguntas.Numero1 * preguntas.Numero2
     preguntas.Respuestas.push(respuestica);
     log(preguntas.Respuestas);
     document.querySelector(".number1").innerText = preguntas.Numero1;
@@ -45,25 +48,62 @@ const wi = ()=>{
         document.querySelector("#answer2").innerText = preguntas.Respuestas[1]
         document.querySelector("#answer1").innerText = preguntas.Respuestas[0]
     }
-    }
-    const array = document.querySelectorAll(".buttoncito")
+}
+    log(respuestica)
     random(azar(4))
-    array.forEach(element => {
-        element.addEventListener("click", (e) =>{
-            const extraer = e.target.innerText
-            log(extraer)
-            if (extraer == respuestica) {
-                document.querySelector("#status").innerText = "Respuesta Correcta"
-            }else{
-                document.querySelector("#status").innerText = "Respuesta Incorrecta"
-                e.target.classList.add("hidden");
-            }
-        })
-    });
+
 }
 window.addEventListener("load",wi )
-
-
+const array = document.querySelectorAll(".buttoncito")
+array.forEach(element => {
+    element.addEventListener("click", (e) =>{
+        const extraer = e.target.innerText
+        log(extraer)
+        if (extraer == respuestica) {
+            correctas++
+            document.querySelector("#status").innerText = "Felicidades, La respuesta es correcta"
+            document.querySelector("#status").style.color = "blue"
+            setTimeout(() => {
+                alert("Click para pasar a la siguiente pregunta")
+            document.querySelector("#status").innerText = ""
+                wi()
+                const array = document.querySelectorAll(".buttoncito")
+                array.forEach(element => {
+                   element.classList.remove("hidden")
+                })
+            document.querySelector("#status").style.color = "red"
+            }, 100);
+        }else{
+            inCorrectas++
+            document.querySelector("#status").innerText = "Respuesta Incorrecta"
+            e.target.classList.add("hidden");
+        }
+    })
+});
+log(correctas)
 document.querySelector("#mesclar").addEventListener("click", ()=>{
     wi()
-})
+    const array = document.querySelectorAll(".buttoncito")
+    array.forEach(element => {
+       element.classList.remove("hidden")
+    })
+    document.querySelector("#status").innerText = ""
+    });
+
+    
+
+    document.querySelector("#result").addEventListener("click",()=>{
+        document.querySelector("#correcta").classList.remove("hidden")
+        document.querySelector("#incorrecta").classList.remove("hidden")
+        document.querySelector("#correcta").innerText = `Usted ha tenido ${correctas} Respuestas Correctas`
+        document.querySelector("#correcta").style.color = "blue"
+        document.querySelector("#incorrecta").innerText = `Usted ha tenido ${inCorrectas} Respuestas Incorrectas`
+    })
+    document.querySelector("#reiniciar").addEventListener("click",()=>{
+        location.reload();
+    })
+    document.querySelector("#Noresult").addEventListener("click",()=>{
+        document.querySelector("#correcta").classList.add("hidden")
+        document.querySelector("#incorrecta").classList.add("hidden")
+    })
+    
