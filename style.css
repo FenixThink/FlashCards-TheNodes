@@ -92,3 +92,7 @@ footer div{
     margin: 1vh;
 
 }
+
+.hidden{
+    visibility: hidden;
+}
