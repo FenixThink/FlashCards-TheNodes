@@ -2,13 +2,14 @@ const log = (somethigth) => {
     console.log(somethigth)
 }
 let respuestica
+let correctas = 0
+let inCorrectas = 0
 const azar = (number1)=>{
     const number = Math.floor(Math.random() * number1)
     return number
 }
-let correctas = 0
-let inCorrectas = 0
-const wi = ()=>{
+
+const sacarPreguntas = ()=>{
     const preguntas = {
         "Numero1" : azar(15),
         "Numero2" : azar(15),
@@ -51,47 +52,73 @@ const wi = ()=>{
 }
     log(respuestica)
     random(azar(4))
-
 }
-window.addEventListener("load",wi )
-const array = document.querySelectorAll(".buttoncito")
-array.forEach(element => {
-    element.addEventListener("click", (e) =>{
-        const extraer = e.target.innerText
-        log(extraer)
-        if (extraer == respuestica) {
-            correctas++
-            document.querySelector("#status").innerText = "Felicidades, La respuesta es correcta"
-            document.querySelector("#status").style.color = "blue"
-            setTimeout(() => {
-                alert("Click para pasar a la siguiente pregunta")
-            document.querySelector("#status").innerText = ""
-                wi()
-                const array = document.querySelectorAll(".buttoncito")
-                array.forEach(element => {
-                   element.classList.remove("hidden")
-                })
-            document.querySelector("#status").style.color = "red"
-            }, 100);
-        }else{
-            inCorrectas++
-            document.querySelector("#status").innerText = "Respuesta Incorrecta"
-            e.target.classList.add("hidden");
-        }
+
+window.addEventListener("load",sacarPreguntas)
+
+const arrayBotones = document.querySelectorAll(".buttoncito")
+const validarPregunta = (e)=>{
+    const datoSeleccionado = e.target.innerText
+    if(datoSeleccionado == respuestica){
+        correctas++
+        document.querySelector("#status").innerText = "Felicidades, La respuesta es correcta"
+        document.querySelector("#status").style.color = "blue"
+        e.target.style.background = "green"
+        arrayBotones.forEach(element => {
+            element.removeEventListener("click", validarPregunta)
+        })
+    }else{
+        inCorrectas++
+                document.querySelector("#status").innerText = "Respuesta Incorrecta"
+                e.target.classList.add("hidden");
+    }
+}
+const AddListener = ()=>{
+    arrayBotones.forEach(element => {
+        element.addEventListener("click", validarPregunta)
     })
-});
-log(correctas)
+}
+AddListener()
+
+/*const addevent = ()=>{
+    array.forEach(element => {
+        element.addEventListener("click", (e) =>{
+            const extraer = e.target.innerText
+            log(extraer)
+            if (extraer == respuestica) {
+                correctas++
+                document.querySelector("#status").innerText = "Felicidades, La respuesta es correcta"
+                document.querySelector("#status").style.color = "blue"
+                element.removeEventListener("click", (e) =>{})
+                    /* alert("Click para pasar a la siguiente pregunta") 
+                /* document.querySelector("#status").innerText = "" 
+                    /* wi() 
+                    const array = document.querySelectorAll(".buttoncito")
+                    array.forEach(element => {
+                       element.classList.remove("hidden")})
+            }else{
+                inCorrectas++
+                document.querySelector("#status").innerText = "Respuesta Incorrecta"
+                e.target.classList.add("hidden");
+            }
+        })
+    });
+} */
+
+/* Mostrar una pregunta al azar al darle click a mezclar */
 document.querySelector("#mesclar").addEventListener("click", ()=>{
-    wi()
+    sacarPreguntas()
+    AddListener()
     const array = document.querySelectorAll(".buttoncito")
     array.forEach(element => {
+        element.style.background = "white"
        element.classList.remove("hidden")
     })
     document.querySelector("#status").innerText = ""
     });
 
     
-
+    /* Mostrar resultados */
     document.querySelector("#result").addEventListener("click",()=>{
         document.querySelector("#correcta").classList.remove("hidden")
         document.querySelector("#incorrecta").classList.remove("hidden")
@@ -99,9 +126,11 @@ document.querySelector("#mesclar").addEventListener("click", ()=>{
         document.querySelector("#correcta").style.color = "blue"
         document.querySelector("#incorrecta").innerText = `Usted ha tenido ${inCorrectas} Respuestas Incorrectas`
     })
+    /* Reiniciar el programa */
     document.querySelector("#reiniciar").addEventListener("click",()=>{
         location.reload();
     })
+    /* Ocultar Respuestas incorrectas */
     document.querySelector("#Noresult").addEventListener("click",()=>{
         document.querySelector("#correcta").classList.add("hidden")
         document.querySelector("#incorrecta").classList.add("hidden")
